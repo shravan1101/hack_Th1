@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora - AI Mental Health Companion</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar glass-panel">
+            <div class="brand">
+                <i class="fa-solid fa-leaf gradient-text"></i>
+                <span class="brand-name gradient-text">Aurora</span>
+            </div>
+            
+            <nav class="side-nav">
+                <a href="#" class="nav-item active" data-target="chat">
+                    <i class="fa-regular fa-comment-dots"></i>
+                    <span>Chat</span>
+                </a>
+                <a href="#" class="nav-item" data-target="breathe">
+                    <i class="fa-solid fa-wind"></i>
+                    <span>Breathe</span>
+                </a>
+                <a href="#" class="nav-item" data-target="resources">
+                    <i class="fa-solid fa-book-medical"></i>
+                    <span>Resources</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Chat View -->
+            <section id="chatView" class="view-section active">
+                <header class="view-header glass-panel">
+                    <div class="header-info">
+                        <h2>Your Safe Space</h2>
+                        <p>I'm here to listen, without judgment.</p>
+                    </div>
+                </header>
+
+                <div class="chat-container glass-panel" id="chatbox">
+                    <div class="message bot-message">
+                        <div class="message-avatar">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <div class="message-content">
+                            <p>Hello. I'm Aurora. How are you feeling right now?</p>
+                        </div>
+                    </div>
+                    <!-- Messages will be injected here -->
+                </div>
+
+                <div class="input-area glass-panel">
+                    <button id="micBtn" class="action-btn icon-only" title="Click to speak">
+                        <i class="fa-solid fa-microphone"></i>
+                    </button>
+                    <textarea id="userInput" placeholder="Type or speak your message here..."></textarea>
+                    <button id="sendBtn" class="primary-btn">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Breathe View -->
+            <section id="breatheView" class="view-section hidden">
+                <header class="view-header glass-panel">
+                    <div class="header-info">
+                        <h2>Breathing Exercise</h2>
+                        <p>Take a moment to center yourself.</p>
+                    </div>
+                </header>
+                
+                <div class="breathe-container glass-panel">
+                    <div class="breathing-circle">
+                       <span id="breatheText">Inhale</span>
+                    </div>
+                    <div class="breathe-controls">
+                        <button id="startBreatheBtn" class="primary-btn">Start Exercise</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resources View -->
+            <section id="resourcesView" class="view-section hidden">
+                <header class="view-header glass-panel">
+                    <div class="header-info">
+                        <h2>Emergency Resources</h2>
+                        <p>You are not alone. Help is available.</p>
+                    </div>
+                </header>
+
+                <div class="resources-container glass-panel">
+                    <div class="resource-card">
+                        <div class="resource-icon emergency">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div class="resource-details">
+                            <h3>National Emergency</h3>
+                            <p>Call <strong>112</strong> for general emergencies, <strong>108</strong> for Ambulance, or <strong>100</strong> for Police.</p>
+                        </div>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon lifeline">
+                             <i class="fa-solid fa-hand-holding-heart"></i>
+                        </div>
+                        <div class="resource-details">
+                            <h3>Aasra Suicide Prevention</h3>
+                            <p>Call <strong>9820466726</strong> to connect with a crisis counselor in India 24/7.</p>
+                            <a href="http://www.aasra.info/" target="_blank" class="resource-link">Visit Website</a>
+                        </div>
+                    </div>
+                    
+                     <div class="resource-card">
+                        <div class="resource-icon text-line">
+                            <i class="fa-solid fa-comment-sms"></i>
+                        </div>
+                        <div class="resource-details">
+                            <h3>Kiran Helpline</h3>
+                            <p>Call <strong>1800-599-0019</strong> for mental health rehabilitation and support.</p>
+                            <a href="https://socialjustice.gov.in/" target="_blank" class="resource-link">Visit Website</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script type="module" src="/script.js"></script>
+</body>
+</html>

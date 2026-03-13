@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — AI Accessibility Hub</title>
+  <meta name="description"
+    content="Sign in to AI Accessibility Hub — Theme 5: AI for Accessibility, Healthcare & Well-Being" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="login-page">
+
+  <!-- Background layers -->
+  <div class="bg-mesh"></div>
+  <div class="bg-grid"></div>
+
+  <!-- Floating particles -->
+  <div id="particles"></div>
+
+  <!-- Login Container -->
+  <div class="login-container">
+
+    <!-- Brand -->
+    <div class="brand-logo">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round">
+          <circle cx="12" cy="8" r="3" />
+          <path d="M6 21v-1a6 6 0 0 1 12 0v1" />
+          <path d="M3 11h7m4 0h7" />
+          <path d="M12 11v4" />
+        </svg>
+      </div>
+      <div class="brand-name">AI Accessibility Hub</div>
+      <div class="brand-tagline">Theme 5 · AI for Accessibility, Healthcare &amp; Well-Being</div>
+    </div>
+
+    <!-- Login Card -->
+    <div class="login-card">
+
+      <!-- Badges -->
+      <div class="badge-row">
+        <span class="badge badge-theme">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="12" r="10" />
+          </svg>
+          Hackathon 2026
+        </span>
+        <span class="badge badge-ai">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5" />
+            <path d="M2 12l10 5 10-5" />
+          </svg>
+          AI Powered
+        </span>
+      </div>
+
+      <h2>Welcome back</h2>
+      <p class="subtitle">Sign in to access your AI-powered accessibility services and continue building the future of
+        inclusive tech.</p>
+
+      <div class="divider"><span>CONTINUE WITH</span></div>
+
+      <!-- Google Sign In -->
+      <button class="btn-google" id="googleSignInBtn" onclick="signInWithGoogle()">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+            fill="#4285F4" />
+          <path
+            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+            fill="#34A853" />
+          <path
+            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+            fill="#FBBC05" />
+          <path
+            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+            fill="#EA4335" />
+        </svg>
+        <span>Sign in with Google</span>
+      </button>
+
+      <!-- Auth message -->
+      <div class="auth-message" id="authMessage"></div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="login-footer">
+      By signing in, you agree to participate in this <strong>Hackathon project</strong>.<br />
+      Secure authentication powered by <a href="#">Google Firebase</a>.
+    </div>
+
+  </div>
+
+  <!-- Firebase + Supabase SDKs -->
+  <script type="module">
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged }
+      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { createClient }
+      from "https://esm.sh/@supabase/supabase-js@2";
+
+    // ─── FIREBASE CONFIG ──────────────────────────────────────────────────────
+    const firebaseConfig = {
+      apiKey:            "AIzaSyD7MuMHuzoZBw22jwpyVnFllHKkbwvzuqA",
+      authDomain:        "functionallogin-218e6.firebaseapp.com",
+      projectId:         "functionallogin-218e6",
+      storageBucket:     "functionallogin-218e6.firebasestorage.app",
+      messagingSenderId: "10050031446",
+      appId:             "1:10050031446:web:0c486edb39fecc0c11d0f7",
+      measurementId:     "G-Q4WKR10S0R"
+    };
+
+    // ─── SUPABASE CONFIG ──────────────────────────────────────────────────────
+    const SUPABASE_URL  = "https://gultpzsyszwxcncbjkhb.supabase.co";
+    const SUPABASE_ANON = "sb_publishable_ZOdAUVjOluQw1Oy-oAscLQ_4rRXXFmK";
+    // ─────────────────────────────────────────────────────────────────────────
+
+    // Firebase — always init first
+    const app      = initializeApp(firebaseConfig);
+    const auth     = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    // Supabase — wrapped in try/catch so a bad key never kills the login button
+    let supabase = null;
+    try {
+      supabase = createClient(SUPABASE_URL, SUPABASE_ANON);
+    } catch (e) {
+      console.warn("Supabase init failed (login still works):", e.message);
+    }
+
+    // Upsert user into Supabase — fully crash-safe, never blocks auth flow
+    async function syncUserToSupabase(user) {
+      if (!supabase) return;
+      try {
+        const { error } = await supabase.from("users").upsert({
+          uid:          user.uid,
+          email:        user.email,
+          display_name: user.displayName,
+          photo_url:    user.photoURL,
+          last_login:   new Date().toISOString(),
+        }, { onConflict: "uid" });
+        if (error) console.warn("Supabase sync error:", error.message);
+        else       console.log("✅ User synced to Supabase:", user.email);
+      } catch (e) {
+        console.warn("Supabase sync exception:", e.message);
+      }
+    }
+
+    // Auto-redirect if already signed in
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        await syncUserToSupabase(user);
+        window.location.href = "dashboard.html";
+      }
+    });
+
+    // Expose to window so onclick="signInWithGoogle()" in HTML works
+    // (module scripts have isolated scope — this is the correct way to bridge it)
+    window.signInWithGoogle = async function () {
+      const btn = document.getElementById("googleSignInBtn");
+      const msg = document.getElementById("authMessage");
+
+      btn.classList.add("loading");
+      btn.innerHTML = `<div class="spinner"></div><span>Signing in…</span>`;
+      msg.className = "auth-message";
+
+      try {
+        const result = await signInWithPopup(auth, provider);
+        await syncUserToSupabase(result.user);
+        // onAuthStateChanged fires and handles redirect
+      } catch (err) {
+        btn.classList.remove("loading");
+        btn.innerHTML = `
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+          <span>Sign in with Google</span>`;
+
+        let errMsg = "An error occurred. Please try again.";
+        if      (err.code === "auth/popup-closed-by-user")    errMsg = "Sign-in window was closed. Please try again.";
+        else if (err.code === "auth/popup-blocked")           errMsg = "Popup blocked — please allow popups for this page.";
+        else if (err.code === "auth/network-request-failed")  errMsg = "Network error. Check your connection.";
+        else if (err.code === "auth/unauthorized-domain")     errMsg = "⚠️ Add localhost to Firebase Authorized Domains.";
+
+        msg.textContent = errMsg;
+        msg.className   = "auth-message error";
+        console.error("Sign-in error:", err.code, err.message);
+      }
+    };
+  </script>
+
+  <!-- Particle animation (separate non-module script to avoid scope conflicts) -->
+  <script>
+    (function () {
+      const container = document.getElementById("particles");
+      const COLORS = ["rgba(0,212,255,0.5)", "rgba(0,120,255,0.45)", "rgba(124,58,237,0.4)", "rgba(0,180,166,0.4)"];
+      for (let i = 0; i < 18; i++) {
+        const p    = document.createElement("div");
+        const size = Math.random() * 4 + 2;
+        p.className = "particle";
+        p.style.cssText = [
+          `width:${size}px`,
+          `height:${size}px`,
+          `left:${Math.random() * 100}%`,
+          `background:${COLORS[Math.floor(Math.random() * COLORS.length)]}`,
+          `animation-duration:${Math.random() * 14 + 10}s`,
+          `animation-delay:${Math.random() * 8}s`,
+        ].join(";");
+        container.appendChild(p);
+      }
+    })();
+  </script>
+
+</body>
+
+</html>

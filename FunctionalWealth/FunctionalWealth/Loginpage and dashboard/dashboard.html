@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — AI Accessibility Hub</title>
+  <meta name="description" content="Select an AI-powered accessibility service to get started."/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body class="dashboard-page">
+
+  <!-- Background layers -->
+  <div class="bg-mesh"></div>
+  <div class="bg-grid"></div>
+
+  <!-- Top Navigation -->
+  <nav class="topnav">
+    <div class="nav-brand">
+      <div class="nav-brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="3"/>
+          <path d="M6 21v-1a6 6 0 0 1 12 0v1"/>
+          <path d="M3 11h7m4 0h7"/>
+          <path d="M12 11v4"/>
+        </svg>
+      </div>
+      <span class="nav-brand-name">AI Accessibility Hub</span>
+    </div>
+
+    <div class="nav-right">
+      <div class="user-chip" id="userChip">
+        <div class="user-avatar-placeholder" id="userAvatarPlaceholder">?</div>
+        <span class="user-name" id="userName">Loading…</span>
+      </div>
+      <button class="btn-signout" id="signOutBtn" onclick="handleSignOut()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Sign Out
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content (hidden until auth confirmed) -->
+  <main class="dashboard-main" id="mainContent" style="display:none;">
+
+    <header class="dashboard-header">
+      <div class="dashboard-eyebrow">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+        Theme 5 · Hackathon 2026
+      </div>
+      <h1 class="dashboard-title">
+        AI for <span class="highlight">Accessibility</span>,<br/>
+        Healthcare &amp; Well-Being
+      </h1>
+      <p class="dashboard-subtitle">
+        Three AI-powered services designed to make healthcare and public services
+        more accessible and equitable for everyone.
+      </p>
+    </header>
+
+    <!-- Welcome strip -->
+    <div class="welcome-strip">
+      <div class="welcome-strip-dot"></div>
+      <div class="welcome-strip-text">
+        Welcome, <strong id="welcomeName">User</strong>! Choose a service below to get started.
+      </div>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="services-label">Available Services</div>
+    <div class="services-grid">
+
+      <!-- Card 1: FunctionalAccess -->
+      <a class="service-card card-functional" id="card-1" href="#" onclick="handleServiceClick(event,'FunctionalAccess')">
+        <span class="card-number">01</span>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+            <line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>
+          </svg>
+        </div>
+        <div class="card-service-tag">Service 01</div>
+        <h2 class="card-title">FunctionalAccess</h2>
+        <p class="card-description">
+          Real-time sign language &amp; speech-to-text translation app for accessibility
+          in education and public services. Breaking communication barriers with AI.
+        </p>
+        <div class="card-footer">
+          <span class="card-status status-active"><span class="status-dot"></span>Active</span>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 2: Aurora -->
+      <a class="service-card card-aurora" id="card-2" href="#" onclick="handleServiceClick(event,'Aurora')">
+        <span class="card-number">02</span>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-1.66"/>
+            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-1.66"/>
+          </svg>
+        </div>
+        <div class="card-service-tag">Service 02</div>
+        <h2 class="card-title">Aurora</h2>
+        <p class="card-description">
+          AI chatbot &amp; voice analysis tool for early stress and mental health risk
+          detection, paired with personalized coping resources and support pathways.
+        </p>
+        <div class="card-footer">
+          <span class="card-status status-active-purple"><span class="status-dot"></span>Active</span>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 3: Coming Soon -->
+      <a class="service-card card-tbd" id="card-3" href="#" onclick="handleServiceClick(event,'Service3')">
+        <span class="card-number">03</span>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M5 5L1 1m18 18-4-4M5 19l-4 4M21 3l-4 4"/>
+          </svg>
+        </div>
+        <div class="card-service-tag">Service 03</div>
+        <h2 class="card-title">Coming Soon</h2>
+        <p class="card-description">
+          Image-based early detection system for common conditions — such as diabetic retinopathy
+          or skin issues — directly from phone photos using on-device AI.
+        </p>
+        <div class="card-footer">
+          <span class="card-status status-soon"><span class="status-dot"></span>In Development</span>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Stats strip -->
+    <div class="stats-strip">
+      <div class="stat-item"><div class="stat-value">3</div><div class="stat-label">AI Services</div></div>
+      <div class="stat-item"><div class="stat-value">Theme 5</div><div class="stat-label">Hackathon Track</div></div>
+      <div class="stat-item"><div class="stat-value">Real-Time</div><div class="stat-label">AI Processing</div></div>
+      <div class="stat-item"><div class="stat-value">2026</div><div class="stat-label">Edition</div></div>
+    </div>
+
+  </main>
+
+  <!-- Firebase + Supabase SDKs -->
+  <script type="module">
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signOut, onAuthStateChanged }
+      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { createClient }
+      from "https://esm.sh/@supabase/supabase-js@2";
+
+    // ─── FIREBASE CONFIG ──────────────────────────────────────────────────────
+    const firebaseConfig = {
+      apiKey:            "AIzaSyD7MuMHuzoZBw22jwpyVnFllHKkbwvzuqA",
+      authDomain:        "functionallogin-218e6.firebaseapp.com",
+      projectId:         "functionallogin-218e6",
+      storageBucket:     "functionallogin-218e6.firebasestorage.app",
+      messagingSenderId: "10050031446",
+      appId:             "1:10050031446:web:0c486edb39fecc0c11d0f7",
+      measurementId:     "G-Q4WKR10S0R"
+    };
+
+    // ─── SUPABASE CONFIG ──────────────────────────────────────────────────────
+    const SUPABASE_URL  = "https://gultpzsyszwxcncbjkhb.supabase.co";
+    const SUPABASE_ANON = "sb_publishable_ZOdAUVjOluQw1Oy-oAscLQ_4rRXXFmK";
+    // ─────────────────────────────────────────────────────────────────────────
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Supabase — crash-safe so auth always works even if key format is wrong
+    let supabase = null;
+    try {
+      supabase = createClient(SUPABASE_URL, SUPABASE_ANON);
+    } catch (e) {
+      console.warn("Supabase init failed (dashboard still works):", e.message);
+    }
+
+    // Upsert user + refresh last_login — fully crash-safe
+    async function refreshUserInSupabase(user) {
+      if (!supabase) return;
+      try {
+        const { error } = await supabase.from("users").upsert({
+          uid:          user.uid,
+          email:        user.email,
+          display_name: user.displayName,
+          photo_url:    user.photoURL,
+          last_login:   new Date().toISOString(),
+        }, { onConflict: "uid" });
+        if (error) console.warn("Supabase refresh error:", error.message);
+        else       console.log("✅ last_login updated for:", user.email);
+      } catch (e) {
+        console.warn("Supabase refresh exception:", e.message);
+      }
+    }
+
+    // Auth guard — redirect to login if not signed in
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = "index.html";
+        return;
+      }
+
+      // Update Supabase with latest visit time
+      await refreshUserInSupabase(user);
+
+      // Populate UI
+      const displayName = user.displayName || user.email || "User";
+      const firstName   = displayName.split(" ")[0];
+      document.getElementById("userName").textContent    = displayName;
+      document.getElementById("welcomeName").textContent = firstName;
+
+      // Avatar
+      const chip = document.getElementById("userChip");
+      if (user.photoURL) {
+        const old = document.getElementById("userAvatarPlaceholder");
+        const img = document.createElement("img");
+        img.src = user.photoURL; img.alt = displayName; img.className = "user-avatar";
+        chip.replaceChild(img, old);
+      } else {
+        document.getElementById("userAvatarPlaceholder").textContent = firstName.charAt(0).toUpperCase();
+      }
+
+      // Fade-in main content
+      const main = document.getElementById("mainContent");
+      main.style.display   = "block";
+      main.style.opacity   = "0";
+      main.style.transform = "translateY(16px)";
+      requestAnimationFrame(() => {
+        main.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+        main.style.opacity    = "1";
+        main.style.transform  = "translateY(0)";
+      });
+    });
+
+    // Sign-out — exposed to global scope
+    window.handleSignOut = async function () {
+      await signOut(auth);
+      window.location.href = "index.html";
+    };
+  </script>
+
+  <!-- Card click stubs -->
+  <script>
+    window.handleServiceClick = function (e, serviceName) {
+      e.preventDefault();
+      const card = e.currentTarget;
+      card.style.transition = "transform 0.15s ease";
+      card.style.transform  = "scale(0.97)";
+      setTimeout(() => { card.style.transform = ""; }, 200);
+    };
+  </script>
+
+</body>
+</html>
